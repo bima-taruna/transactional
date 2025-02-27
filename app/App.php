@@ -19,14 +19,16 @@ function getCsvContent(string $filepath): array
     return $result;
 }
 
-function processTheArray(array $arr)
+function processTheArray(array $arr, array &$expense, array &$income)
 {
     for ($i = 1; $i < count($arr); $i++) {
         echo "<tr></tr>";
         foreach ($arr[$i] as $item) {
             if ($item[0] === "-") {
+                $expense[] = $item;
                 echo "<td class='expense'>$item</td>";
             } else {
+                $income[] = $item;
                 echo "<td class='income'>$item</td>";
             }
         }

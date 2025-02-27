@@ -18,3 +18,13 @@ function getCsvContent(string $filepath): array
     }
     return $result;
 }
+
+function processTheArray(array $arr)
+{
+    for ($i = 1; $i < count($arr); $i++) {
+        echo "<tr></tr>";
+        foreach ($arr[$i] as $item) {
+            echo "<td>$item</td>";
+        }
+    }
+}

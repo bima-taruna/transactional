@@ -75,7 +75,12 @@
             </tr>
             <tr>
                 <th colspan="3">Net Total:</th>
-                <td><!-- YOUR CODE --></td>
+                <td>
+                    <?php
+                    $total = $incomeSum - $expenseSum;
+                    echo "$$total";
+                    ?>
+                </td>
             </tr>
         </tfoot>
     </table>

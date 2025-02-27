@@ -36,3 +36,8 @@ function processTheArray(array $arr, array &$expense, array &$income)
         }
     }
 }
+
+function sumAndPrint(array $arr)
+{
+    return array_sum(array_map(fn($price) => floatval(str_replace([",", "$"], "", $price)), $arr));
+}

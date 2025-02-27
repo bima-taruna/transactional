@@ -59,8 +59,8 @@
                 <th colspan="3">Total Income:</th>
                 <td>
                     <?php
-                    $incomeSum = array_sum(array_map(fn($price) => floatval(str_replace([",", "$"], "", $price)), $income));;
-                    echo "$$incomeSum";
+                    $incomeSum = sumAndPrint($income);
+                    echo "$" . number_format($incomeSum, 2);
                     ?>
                 </td>
             </tr>
@@ -68,8 +68,8 @@
                 <th colspan="3">Total Expense:</th>
                 <td>
                     <?php
-                    $expenseSum = array_sum(array_map(fn($price) => floatval(str_replace(["-", ",", "$"], "", $price)), $expense));;
-                    echo "-$$expenseSum";
+                    $expenseSum = sumAndPrint($expense);
+                    echo "$" . number_format($expenseSum, 2);
                     ?>
                 </td>
             </tr>
@@ -77,8 +77,8 @@
                 <th colspan="3">Net Total:</th>
                 <td>
                     <?php
-                    $total = $incomeSum - $expenseSum;
-                    echo "$$total";
+                    $total = $incomeSum - (-$expenseSum);
+                    echo "$" . number_format($total, 2);
                     ?>
                 </td>
             </tr>

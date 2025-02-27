@@ -24,7 +24,11 @@ function processTheArray(array $arr)
     for ($i = 1; $i < count($arr); $i++) {
         echo "<tr></tr>";
         foreach ($arr[$i] as $item) {
-            echo "<td>$item</td>";
+            if ($item[0] === "-") {
+                echo "<td class='expense'>$item</td>";
+            } else {
+                echo "<td class='income'>$item</td>";
+            }
         }
     }
 }

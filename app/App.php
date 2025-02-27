@@ -25,11 +25,11 @@ function processTheArray(array $arr, array &$expense, array &$income)
         echo "<tr></tr>";
         foreach ($arr[$i] as $item) {
             if ($item[0] === "-") {
-                $expense[] = $item;
                 echo "<td class='expense'>$item</td>";
-            } else {
-                $income[] = $item;
+            } else if ($item[0] === "$") {
                 echo "<td class='income'>$item</td>";
+            } else {
+                echo "<td>$item</td>";
             }
         }
     }

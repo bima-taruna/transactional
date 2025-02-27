@@ -57,11 +57,21 @@
         <tfoot>
             <tr>
                 <th colspan="3">Total Income:</th>
-                <td></td>
+                <td>
+                    <?php
+                    $incomeSum = array_sum(array_map(fn($price) => floatval(str_replace([",", "$"], "", $price)), $income));;
+                    echo "$$incomeSum";
+                    ?>
+                </td>
             </tr>
             <tr>
                 <th colspan="3">Total Expense:</th>
-                <td><!-- YOUR CODE --></td>
+                <td>
+                    <?php
+                    $expenseSum = array_sum(array_map(fn($price) => floatval(str_replace(["-", ",", "$"], "", $price)), $expense));;
+                    echo "-$$expenseSum";
+                    ?>
+                </td>
             </tr>
             <tr>
                 <th colspan="3">Net Total:</th>

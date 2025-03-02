@@ -51,7 +51,8 @@
             $result = getCsvContent(FILES_PATH . "sample_1.csv");
             $income = [];
             $expense = [];
-            processTheArray($result, $expense, $income);
+            $transactionArr = processTheArray($result, $expense, $income);
+            printTransaction($transactionArr);
             ?>
         </tbody>
         <tfoot>
@@ -60,7 +61,7 @@
                 <td>
                     <?php
                     $incomeSum = sumAndPrint($income);
-                    echo "$" . number_format($incomeSum, 2);
+                    echo "$" . number_format($incomeSum, 2) ?? 0;
                     ?>
                 </td>
             </tr>
@@ -69,7 +70,7 @@
                 <td>
                     <?php
                     $expenseSum = sumAndPrint($expense);
-                    echo "$" . number_format($expenseSum, 2);
+                    echo "$" . number_format($expenseSum, 2) ?? 0;
                     ?>
                 </td>
             </tr>
@@ -78,7 +79,7 @@
                 <td>
                     <?php
                     $total = $incomeSum - (-$expenseSum);
-                    echo "$" . number_format($total, 2);
+                    echo "$" . number_format($total, 2) ?? 0;
                     ?>
                 </td>
             </tr>

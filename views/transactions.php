@@ -51,8 +51,8 @@
             $result = getCsvContent(FILES_PATH . "sample_1.csv");
             $income = [];
             $expense = [];
-            $transactionArr = processTheArray($result, $expense, $income);
-            printTransaction($transactionArr);
+            $transactionArr = processTheArray($result);
+            printTransaction($transactionArr, $expense, $income);
             ?>
         </tbody>
         <tfoot>

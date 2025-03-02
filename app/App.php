@@ -19,25 +19,43 @@ function getCsvContent(string $filepath): array
     return $result;
 }
 
-function processTheArray(array $arr, array &$expense, array &$income)
+function processTheArray(array $arr, array &$expense, array &$income): array
 {
+    $processedTransaction = [];
     for ($i = 1; $i < count($arr); $i++) {
-        echo "<tr></tr>";
-        foreach ($arr[$i] as $item) {
-            if ($item[0] === "-") {
-                $expense[] = $item;
-                echo "<td class='expense'>$item</td>";
-            } else if ($item[0] === "$") {
-                $income[] = $item;
-                echo "<td class='income'>$item</td>";
-            } else {
-                echo "<td>$item</td>";
-            }
-        }
+        array_push($processedTransaction, extractArray($arr[$i]));
     }
+    return $processedTransaction;
 }
 
 function sumAndPrint(array $arr)
 {
     return array_sum(array_map(fn($price) => floatval(str_replace([",", "$"], "", $price)), $arr));
+}
+
+function extractArray(array $transactionRow)
+{
+    [$date, $checkNumber, $description, $amount] = $transactionRow;
+
+    $amount = (float) str_replace(['$', ','], '', $amount);
+
+    return [
+        'date'        => $date,
+        'checkNumber' => $checkNumber,
+        'description' => $description,
+        'amount'      => $amount,
+    ];
+}
+
+function printTransaction(array $transactionArr)
+{
+    foreach ($transactionArr as $transaction) {
+        $amount = $transaction['amount'];
+        $amountClass = $amount < 0 ? "expense" : "income";
+        echo "<td>{$transaction['date']}</td>";
+        echo "<td>{$transaction['checkNumber']}</td>";
+        echo "<td>{$transaction['description']}</td>";
+        echo "<td class='$amountClass'>{$transaction['amount']}</td>";
+        echo "</tr>";
+    }
 }

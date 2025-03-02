@@ -19,7 +19,7 @@ function getCsvContent(string $filepath): array
     return $result;
 }
 
-function processTheArray(array $arr, array &$expense, array &$income): array
+function processTheArray(array $arr): array
 {
     $processedTransaction = [];
     for ($i = 1; $i < count($arr); $i++) {
@@ -47,15 +47,27 @@ function extractArray(array $transactionRow)
     ];
 }
 
-function printTransaction(array $transactionArr)
+function printTransaction(array $transactionArr, &$expense, &$income)
 {
     foreach ($transactionArr as $transaction) {
         $amount = $transaction['amount'];
-        $amountClass = $amount < 0 ? "expense" : "income";
-        echo "<td>{$transaction['date']}</td>";
-        echo "<td>{$transaction['checkNumber']}</td>";
-        echo "<td>{$transaction['description']}</td>";
-        echo "<td class='$amountClass'>{$transaction['amount']}</td>";
-        echo "</tr>";
+        $amountClass = $amount < 0 ? 'expense' : 'income';
+        $amount = number_format($amount, 2);
+        if ($amount < 0) {
+            array_push($expense, $amount);
+        } else {
+            array_push($income, $amount);
+        }
+        echo "<tr>
+                <td>" . formatDate($transaction['date']) . "</td>
+                <td>{$transaction['checkNumber']}</td>
+                <td>{$transaction['description']}</td>
+                <td class='$amountClass'>$" . $amount . "</td>
+            </tr>";
     }
+}
+
+function formatDate(string $date): string
+{
+    return date('M j, Y', strtotime($date));
 }
